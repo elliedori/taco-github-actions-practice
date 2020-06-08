@@ -10,4 +10,9 @@ class TacoApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void outputsToConsole() {
+		System.out.println("Hello world");
+	}
+
 }
