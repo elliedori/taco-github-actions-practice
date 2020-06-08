@@ -12,7 +12,7 @@ class TacoApplicationTests {
 
 	@Test
 	void outputsToConsole() {
-		System.out.println("Hello world");
+		System.out.println("Hello world, I am using Github Actions");
 	}
 
 }
