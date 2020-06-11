@@ -21,7 +21,7 @@ jobs:
         env:
           FAV_WORD: ${{ secrets.FAVORITE_WORD }}
       - name: Spill your secrets!
-        run: echo here are my secrets ${{ env.FAV_WORD }}
+        run: echo "here are my secrets ${{ env.FAV_WORD }}"
 #      - name: Maven Package
 #        run: mvn -B clean package -DskipTests
 #      - name: Maven Verify
