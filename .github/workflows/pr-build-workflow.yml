@@ -17,12 +17,11 @@ jobs:
         with:
           java-version: '14'
           architecture: x64
-          secret_color: ${{ secrets.COLOR }}
         env:
           FAV_WORD: ${{ secrets.FAVORITE_WORD }}
           NAME: Ellie
       - name: Spill your secrets!
-        run: echo here is my name $NAME
+        run: echo here is my name ${NAME}
 #      - name: Maven Package
 #        run: mvn -B clean package -DskipTests
 #      - name: Maven Verify
