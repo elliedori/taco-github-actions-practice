@@ -1,7 +1,7 @@
 name: PR build
 
 on:
-  pull_request:
+  push:
     branches:
       - master
 
@@ -21,7 +21,7 @@ jobs:
           FAV_WORD: ${{ secrets.FAVORITE_WORD }}
           NAME: Ellie
       - name: Spill your secrets!
-        run: echo here is my name "$NAME"
+        run: echo secrets here "$FAV_WORD" "$NAME"
 #      - name: Maven Package
 #        run: mvn -B clean package -DskipTests
 #      - name: Maven Verify
