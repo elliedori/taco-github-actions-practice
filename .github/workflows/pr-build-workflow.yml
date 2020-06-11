@@ -17,9 +17,14 @@ jobs:
         with:
           java-version: '14'
           architecture: x64
-      - name: Maven Package
-        run: mvn -B clean package -DskipTests
-      - name: Maven Verify
-        run: mvn -B clean verify
+          secret_color: ${{ secrets.COLOR }}
+        env:
+          FAV_WORD: ${{ secrets.FAVORITE_WORD }}
+      - name: Spill your secrets!
+        run: echo here are my secrets "$secret_color" "$FAV_WORD"
+#      - name: Maven Package
+#        run: mvn -B clean package -DskipTests
+#      - name: Maven Verify
+#        run: mvn -B clean verify
 
 
