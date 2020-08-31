@@ -57,3 +57,37 @@ jobs:
           results="$(cat results.txt)"
           jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
+  hello_world_job:
+    runs-on: ubuntu-latest
+    needs: [build, other_build, notify_result]
+    name: Test external action
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download errors folder
+        uses: actions/download-artifact@v2
+        with:
+          name: errors
+      - name: Prepare error output
+        run: |
+          cat job-*.txt > results.txt
+          results="$(cat results.txt)"
+          jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
+      - name: Export errors file
+        uses: actions/upload-artifact@v2
+        with:
+          name: errors
+          path: results.txt
+      - name: Pwd
+        run: |
+          echo "You are in this directory:"
+          pwd
+      - name: Hello world action step
+        id: hello
+        uses: elliedori/hello-world-js-action@v1.22
+        with:
+          who-to-greet: 'the big blue sky'
+          errors: ~/errors/results.txt
+      - name: Get the output time
+        run: |
+          export SLACK_URL="$SLACK_WEBHOOK_URL"
+          echo "The time was ${{ steps.hello.outputs.time }}"
