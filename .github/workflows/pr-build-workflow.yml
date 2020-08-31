@@ -86,7 +86,7 @@ jobs:
         uses: elliedori/hello-world-js-action@v1.22
         with:
           who-to-greet: 'the big blue sky'
-          errors: ~/errors/results.txt
+          errors: errors/results.txt
       - name: Get the output time
         run: |
           export SLACK_URL="$SLACK_WEBHOOK_URL"
