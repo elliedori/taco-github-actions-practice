@@ -7,24 +7,53 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build JDK 8
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 14
-        uses: actions/setup-java@v1
+      - name: Create initial results file
+        run: |
+          touch job-results.txt
+      - name: Export initial results file
+        uses: actions/upload-artifact@v2
         with:
-          java-version: '14'
-          architecture: x64
-        env:
-          FAV_WORD: ${{ secrets.FAVORITE_WORD }}
-          NAME: Ellie
-      - name: Spill your secrets!
-        run: echo secrets here "$FAV_WORD" "$NAME"
-#      - name: Maven Package
-#        run: mvn -B clean package -DskipTests
-#      - name: Maven Verify
-#        run: mvn -B clean verify
-
-
+          name: errors
+          path: job-results.txt
+      - name: Output failure
+        run: |
+          echo ":no_entry_sign: *${GITHUB_JOB}* failed" > job-$GITHUB_JOB.txt
+      - name: Export errors file
+        uses: actions/upload-artifact@v2
+        with:
+          name: errors
+          path: job-${{ github.job }}.txt
+  other_build:
+    name: Build JDK 8
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Output failure
+        run: |
+          echo ":no_entry_sign: *${GITHUB_JOB}* failed" > job-$GITHUB_JOB.txt
+      - name: Export errors file
+        uses: actions/upload-artifact@v2
+        with:
+          name: errors
+          path: job-${{ github.job }}.txt
+  notify_result:
+    name: Check for failures
+    needs: [build, other_build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download errors folder
+        uses: actions/download-artifact@v2
+        with:
+          name: errors
+      - name: Alert Slack on build failure
+        run: |
+          cat job-*.txt > results.txt
+          results="$(cat results.txt)"
+          jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
+          (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
