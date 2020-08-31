@@ -77,13 +77,18 @@ jobs:
         with:
           name: errors
           path: results.txt
+      - name: Download errors folder
+        uses: actions/download-artifact@v2
+        with:
+          name: errors
       - name: Pwd
         run: |
           echo "You are in this directory:"
           pwd
+          ls
       - name: Hello world action step
         id: hello
-        uses: elliedori/hello-world-js-action@v1.22
+        uses: elliedori/hello-world-js-action@v1.23
         with:
           who-to-greet: 'the big blue sky'
           errors: errors/results.txt
