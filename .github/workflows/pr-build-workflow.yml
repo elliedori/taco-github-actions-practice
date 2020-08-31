@@ -97,7 +97,7 @@ jobs:
           export SLACK_URL="$SLACK_WEBHOOK_URL"
           echo "The time was ${{ steps.hello.outputs.time }}"
       - name: Check for existing file
-          run: |
-            echo "Does this include action-output?:"
-            pwd
-            ls
+        run: |
+          echo "Does this include action-output?:"
+          pwd
+          ls
