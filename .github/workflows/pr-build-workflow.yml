@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build JDK 8
+    name: Build 1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
           name: errors
           path: job-${{ github.job }}.txt
   other_build:
-    name: Build JDK 8
+    name: Build 2
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -91,7 +91,7 @@ jobs:
         uses: elliedori/hello-world-js-action@v1.23
         with:
           who-to-greet: 'the big blue sky'
-          errors: errors/results.txt
+          errors: results.txt
       - name: Get the output time
         run: |
           export SLACK_URL="$SLACK_WEBHOOK_URL"
