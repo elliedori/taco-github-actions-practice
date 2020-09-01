@@ -93,3 +93,8 @@ jobs:
           echo Results are $results
           jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
+      - name: Hello world action step
+        id: hello
+        uses: elliedori/hello-world-js-action@v1.26
+        with:
+          job-name: ${{ github.job }}
