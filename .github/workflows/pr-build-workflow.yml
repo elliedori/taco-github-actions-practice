@@ -32,16 +32,6 @@ jobs:
     name: Test external action
     steps:
       - uses: actions/checkout@v2
-      - name: Prepare error output
-        run: |
-          cat job-*.txt > results.txt
-          results="$(cat results.txt)"
-          jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
-      - name: Export errors file
-        uses: actions/upload-artifact@v2
-        with:
-          name: errors
-          path: results.txt
       - name: Pwd
         run: |
           echo "You are in this directory:"
