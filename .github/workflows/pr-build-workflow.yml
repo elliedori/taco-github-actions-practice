@@ -88,14 +88,9 @@ jobs:
           ls
       - name: Hello world action step
         id: hello
-        uses: elliedori/hello-world-js-action@v1.25
+        uses: elliedori/hello-world-js-action@v1.26
         with:
-          who-to-greet: 'the big blue sky'
-          errors: results.txt
-      - name: Get the output time
-        run: |
-          export SLACK_URL="$SLACK_WEBHOOK_URL"
-          echo "The time was ${{ steps.hello.outputs.time }}"
+          job-name: ${{ github.job }}
       - name: Check for existing file
         run: |
           echo "Does this include action-output?:"
