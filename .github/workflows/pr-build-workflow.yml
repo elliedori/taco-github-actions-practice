@@ -11,14 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create initial results file
-        run: |
-          touch job-results.txt
-      - name: Export initial results file
-        uses: actions/upload-artifact@v2
-        with:
-          name: errors
-          path: job-results.txt
       - name: Hello world action step
         id: hello
         uses: elliedori/hello-world-js-action@v1.26
@@ -86,6 +78,8 @@ jobs:
           name: errors
       - name: Alert Slack on build failure
         run: |
+          head job-hello_world_job.txt
+          head job-build.txt
           cat job-*.txt > results.txt
           results="$(cat results.txt)"
           echo Results are $results
