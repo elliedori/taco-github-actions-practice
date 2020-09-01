@@ -32,10 +32,6 @@ jobs:
     name: Test external action
     steps:
       - uses: actions/checkout@v2
-      - name: Download errors folder
-        uses: actions/download-artifact@v2
-        with:
-          name: errors
       - name: Prepare error output
         run: |
           cat job-*.txt > results.txt
@@ -46,10 +42,6 @@ jobs:
         with:
           name: errors
           path: results.txt
-      - name: Download errors folder
-        uses: actions/download-artifact@v2
-        with:
-          name: errors
       - name: Pwd
         run: |
           echo "You are in this directory:"
@@ -72,10 +64,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Download errors folder
-        uses: actions/download-artifact@v2
-        with:
-          name: errors
       - name: Alert Slack on build failure
         run: |
           head job-hello_world_job.txt
