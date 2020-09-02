@@ -95,6 +95,6 @@ jobs:
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
       - name: Send Slack message
         id: send-slack-message
-        uses: elliedori/slack-errors-github-action@v0.1
+        uses: elliedori/slack-errors-github-action@v0.11
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
