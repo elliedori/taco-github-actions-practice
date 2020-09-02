@@ -93,8 +93,8 @@ jobs:
           echo Results are $results
           jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
-      - name: Track error step
-        id: track-errors
-        uses: elliedori/hello-world-js-action@v1.27
+      - name: Send Slack message
+        id: send-slack-message
+        uses: elliedori/slack-errors-github-action@v0.1
         with:
-          job-name: ${{ github.job }}
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
