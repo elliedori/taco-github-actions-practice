@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Track error step
         id: track-errors
-        uses: elliedori/hello-world-js-action@v1.26
+        uses: elliedori/hello-world-js-action@v1.27
         with:
           job-name: ${{ github.job }}
       - name: Pwd
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Track error step
         id: track-errors
-        uses: elliedori/hello-world-js-action@v1.26
+        uses: elliedori/hello-world-js-action@v1.27
         with:
           job-name: ${{ github.job }}
       - name: Pwd
@@ -59,7 +59,7 @@ jobs:
           ls
       - name: Track error step
         id: track-errors
-        uses: elliedori/hello-world-js-action@v1.26
+        uses: elliedori/hello-world-js-action@v1.27
         with:
           job-name: ${{ github.job }}
       - name: Check for existing file
@@ -95,6 +95,6 @@ jobs:
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
       - name: Track error step
         id: track-errors
-        uses: elliedori/hello-world-js-action@v1.26
+        uses: elliedori/hello-world-js-action@v1.27
         with:
           job-name: ${{ github.job }}
