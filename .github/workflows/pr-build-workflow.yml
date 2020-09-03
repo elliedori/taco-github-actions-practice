@@ -88,8 +88,8 @@ jobs:
       - name: Alert Slack on build failure
         run: |
           ls
-          head job-hello_world_job.txt
-          head job-build.txt
+          tail job-hello_world_job.txt
+          tail job-build.txt
           cat job-*.txt > results.txt
           results="$(cat results.txt)"
           echo Results are $results
@@ -97,7 +97,7 @@ jobs:
           (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
       - name: Send Slack message
         id: send-slack-message
-        uses: elliedori/slack-errors-github-action@v0.16
+        uses: elliedori/slack-errors-github-action@v0.17
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           branch-name: ${{ github.ref }}
