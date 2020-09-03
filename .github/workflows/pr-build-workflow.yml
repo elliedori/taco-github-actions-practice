@@ -67,6 +67,8 @@ jobs:
           echo "Does this include action-output?:"
           pwd
           ls
+          echo "Reading error file"
+          tail job-hello_world_job.txt
       - name: Export errors file
         uses: actions/upload-artifact@v2
         with:
