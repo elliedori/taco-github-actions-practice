@@ -12,7 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.28
+        uses: elliedori/hello-world-js-action@v1.29
+        with:
+          job-name: "initiate-error-tracking"
+      - name: Export errors file
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: errors
+          path: job-initiate-error-tracking.txt
+      - name: Track error step
+        uses: elliedori/hello-world-js-action@v1.29
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
@@ -28,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.28
+        uses: elliedori/hello-world-js-action@v1.29
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
@@ -50,7 +60,7 @@ jobs:
           pwd
           ls
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.28
+        uses: elliedori/hello-world-js-action@v1.29
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
