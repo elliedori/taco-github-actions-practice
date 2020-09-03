@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Initiate error tracking
-        uses: elliedori/hello-world-js-action@v1.29
+        uses: spring-projects/track-build-errors-action@v0.01
         with:
           job-name: "initiate-error-tracking"
       - name: Export errors file
@@ -21,7 +21,7 @@ jobs:
           name: errors
           path: job-initiate-error-tracking.txt
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.29
+        uses: spring-projects/track-build-errors-action@v0.01
 #        if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.29
+        uses: spring-projects/track-build-errors-action@v0.01
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
@@ -59,7 +59,7 @@ jobs:
           pwd
           ls
       - name: Track error step
-        uses: elliedori/hello-world-js-action@v1.29
+        uses: spring-projects/track-build-errors-action@v0.01
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
@@ -82,7 +82,7 @@ jobs:
           name: errors
       - name: Send Slack message
         id: send-slack-message
-        uses: elliedori/slack-errors-github-action@v0.20
+        uses: spring-projects/notify-slack-errors-action@v0.01
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           branch-name: ${{ github.ref }}
