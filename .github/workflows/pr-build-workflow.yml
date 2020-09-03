@@ -17,7 +17,6 @@ jobs:
           job-name: "initiate-error-tracking"
       - name: Export errors file
         uses: actions/upload-artifact@v2
-        if: ${{ failure() }}
         with:
           name: errors
           path: job-initiate-error-tracking.txt
