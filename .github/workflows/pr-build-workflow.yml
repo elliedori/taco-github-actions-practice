@@ -22,12 +22,12 @@ jobs:
           path: job-initiate-error-tracking.txt
       - name: Track error step
         uses: spring-projects/track-build-errors-action@v0.01
-#        if: ${{ failure() }}
+        if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
       - name: Export errors file
         uses: actions/upload-artifact@v2
-#        if: ${{ failure() }}
+        if: ${{ failure() }}
         with:
           name: errors
           path: job-${{ github.job }}.txt
