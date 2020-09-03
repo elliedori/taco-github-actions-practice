@@ -13,15 +13,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Track error step
         uses: elliedori/hello-world-js-action@v1.28
+        if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
-      - name: Pwd
-        run: |
-          echo "You are in this directory:"
-          pwd
-          ls
       - name: Export errors file
         uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
         with:
           name: errors
           path: job-${{ github.job }}.txt
@@ -32,14 +29,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Track error step
         uses: elliedori/hello-world-js-action@v1.28
+        if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
-      - name: Pwd
-        run: |
-          echo "You are in this directory:"
-          pwd
-          ls
       - name: Export errors file
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: errors
@@ -57,17 +51,12 @@ jobs:
           ls
       - name: Track error step
         uses: elliedori/hello-world-js-action@v1.28
+        if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
-      - name: Check for existing file
-        run: |
-          echo "Does this include action-output?:"
-          pwd
-          ls
-          echo "Reading error file"
-          tail job-hello_world_job.txt
       - name: Export errors file
         uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
         with:
           name: errors
           path: job-${{ github.job }}.txt
@@ -82,16 +71,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: errors
-      - name: Alert Slack on build failure
-        run: |
-          ls
-          tail job-hello_world_job.txt
-          tail job-build.txt
-          cat job-*.txt > results.txt
-          results="$(cat results.txt)"
-          echo Results are $results
-          jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
-          (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
+#      - name: Alert Slack on build failure
+#        run: |
+#          ls
+#          tail job-hello_world_job.txt
+#          tail job-build.txt
+#          cat job-*.txt > results.txt
+#          results="$(cat results.txt)"
+#          echo Results are $results
+#          jobFilesCount=$(ls . | grep 'job-.*\.txt' | wc -l)
+#          (( $jobFilesCount > 1 )) && echo Sending Slack message... || echo Slack message not sent, no errors to report
       - name: Send Slack message
         id: send-slack-message
         uses: elliedori/slack-errors-github-action@v0.19
