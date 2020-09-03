@@ -12,7 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Track error step
-        id: track-errors
         uses: elliedori/hello-world-js-action@v1.28
         with:
           job-name: ${{ github.job }}
@@ -32,7 +31,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Track error step
-        id: track-errors
         uses: elliedori/hello-world-js-action@v1.28
         with:
           job-name: ${{ github.job }}
@@ -58,7 +56,6 @@ jobs:
           pwd
           ls
       - name: Track error step
-        id: track-errors
         uses: elliedori/hello-world-js-action@v1.28
         with:
           job-name: ${{ github.job }}
