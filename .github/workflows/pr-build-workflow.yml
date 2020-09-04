@@ -1,4 +1,4 @@
-name: PR build
+name: Sample build
 
 on:
   push:
@@ -20,13 +20,13 @@ jobs:
         with:
           name: errors
           path: job-initiate-error-tracking.txt
-  sample_job:
-    name: Sample job
+  sample_job_1:
+    name: Sample job 1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Sample job step
-        run: echo "This is a sample job step"
+        run: echo "This is a sample job 1 step"
       - name: Track error step
         uses: spring-projects/track-build-errors-action@v0.01
         if: ${{ failure() }}
@@ -38,33 +38,31 @@ jobs:
         with:
           name: errors
           path: job-${{ github.job }}.txt
-  other_build:
-    name: Build 2
+  sample_job_2:
+    name: Sample job 1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Sample job step
+        run: echo "This is a sample job 2 step"
       - name: Track error step
         uses: spring-projects/track-build-errors-action@v0.01
         if: ${{ failure() }}
         with:
           job-name: ${{ github.job }}
       - name: Export errors file
-        if: ${{ failure() }}
         uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
         with:
           name: errors
           path: job-${{ github.job }}.txt
-  hello_world_job:
+  sample_job_3:
+    name: Sample job 1
     runs-on: ubuntu-latest
-    needs: [sample_job, other_build]
-    name: Test external action
     steps:
       - uses: actions/checkout@v2
-      - name: Pwd
-        run: |
-          echo "You are in this directory:"
-          pwd
-          ls
+      - name: Sample job step
+        run: echo "This is a sample job 3 step"
       - name: Track error step
         uses: spring-projects/track-build-errors-action@v0.01
         if: ${{ failure() }}
@@ -78,7 +76,7 @@ jobs:
           path: job-${{ github.job }}.txt
   notify_result:
     name: Check for failures
-    needs: [initiate_error_tracking, sample_job, other_build, hello_world_job]
+    needs: [initiate_error_tracking, sample_job_1, sample_job_2, sample_job_3]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -88,7 +86,6 @@ jobs:
         with:
           name: errors
       - name: Send Slack message
-        id: send-slack-message
         uses: spring-projects/notify-slack-errors-action@v0.01
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
