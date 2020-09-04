@@ -78,7 +78,7 @@ jobs:
           path: job-${{ github.job }}.txt
   notify_result:
     name: Check for failures
-    needs: [build, other_build, hello_world_job]
+    needs: [initiate_error_tracking, sample_job, other_build, hello_world_job]
     if: always()
     runs-on: ubuntu-latest
     steps:
