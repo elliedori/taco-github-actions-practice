@@ -97,30 +97,3 @@ jobs:
           commit-owner: ${{ github.actor }}
           repo-name: ${{ github.repository }}
           run-id: ${{ github.run_id }}
-#
-#jobs:
-#  build:
-#    name: Build 1
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Initiate error tracking
-#        uses: spring-projects/track-build-errors-action@v0.01
-#        with:
-#          job-name: "initiate-error-tracking"
-#      - name: Export errors file
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: errors
-#          path: job-initiate-error-tracking.txt
-#      - name: Track error step
-#        uses: spring-projects/track-build-errors-action@v0.01
-#        if: ${{ failure() }}
-#        with:
-#          job-name: ${{ github.job }}
-#      - name: Export errors file
-#        uses: actions/upload-artifact@v2
-#        if: ${{ failure() }}
-#        with:
-#          name: errors
-#          path: job-${{ github.job }}.txt
